@@ -5,7 +5,7 @@ import { connectDB } from "./config/db.js";
 // Import routes
 import movieRoutes from "./routes/movieRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-
+import watchlistRoutes from "./routes/watchlistRoutes.js";
 const app = express();
 
 // body parsing middleware
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true })); //for html parsing
 connectDB();
 app.use("/movies", movieRoutes);
 app.use("/auth", authRoutes);
-
+app.use("/watchlist", watchlistRoutes);
 const port = 8080;
 // store server instance to allow graceful shutdown
 const server = app.listen(port, () =>
