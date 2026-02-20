@@ -1,8 +1,19 @@
+// ensure env vars are available as soon as this module loads
+import "dotenv/config";
+
 import pkg from "@prisma/client";
 // adapter-pg is required for Prisma v7+ when using the default client engine
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const { PrismaClient } = pkg;
+
+// validate connection string early and strictly
+if (!process.env.DATABASE_URL || typeof process.env.DATABASE_URL !== "string") {
+  console.error(
+    "DATABASE_URL must be set and a string. Check your .env file or environment."
+  );
+  process.exit(1);
+}
 
 // build adapter instance using the DATABASE_URL environment variable
 const adapter = new PrismaPg({
@@ -17,6 +28,10 @@ const prisma = new PrismaClient({
       ? ["query", "info", "warn", "error"]
       : ["error"],
 });
+
+// export the Prisma instance so other modules (controllers, services) can use it
+export { prisma };
+
 const connectDB = async () => {
   try {
     await prisma.$connect();

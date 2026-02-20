@@ -1,0 +1,21 @@
+{
+  "name": "RegisterRequest",
+  "request": {
+    "type": "http",
+    "url": "{{BaseURL}}/auth/register",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [],
+    "body": "{\n  \"name\":\"leul\",\n  \"password\":\"password123\",\n  \"email\":\"leul123@gmail.com\"\n}",
+    "contentType": "application/json",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    }
+  },
+  "rank": "auntit17714979860481"
+}

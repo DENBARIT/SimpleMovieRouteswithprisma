@@ -1,14 +1,19 @@
+// load environment variables first so any imported modules can use them
+import "dotenv/config";
 import express from "express";
-import { config } from "dotenv";
 import { connectDB } from "./config/db.js";
 // Import routes
 import movieRoutes from "./routes/movieRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+
 const app = express();
 
-// API Routes
-config(); // Load environment variables from .env file
-connectDB(); // Connect to the database
+// body parsing middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //for html parsing
+
+// Connect to the database (dotenv already loaded via import)
+connectDB();
 app.use("/movies", movieRoutes);
 app.use("/auth", authRoutes);
 

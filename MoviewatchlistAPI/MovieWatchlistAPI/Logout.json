@@ -1,5 +1,6 @@
 {
-  "name": "Untitled request",
+  "name": "Logout",
+  "rank": "aw",
   "request": {
     "type": "http",
     "url": "https://app.requestly.io/echo",
