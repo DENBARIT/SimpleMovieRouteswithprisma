@@ -3,16 +3,25 @@
   "rank": "ax",
   "request": {
     "type": "http",
-    "url": "https://app.requestly.io/echo",
+    "url": "{{BaseURL}}/watchlist",
     "scripts": {
       "preRequest": "",
       "postResponse": ""
     },
-    "method": "GET",
+    "method": "POST",
     "queryParams": [],
-    "headers": [],
-    "body": "",
-    "contentType": "text/plain",
+    "headers": [
+      {
+        "id": 1771589087409,
+        "key": "authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM1NWY3ZDk3LWJhMzYtNGFlMy1hNjU3LTFjZWJhZGY1NGNlYSIsImlhdCI6MTc3MTU5MzczNCwiZXhwIjoxNzcxNjgwMTM0fQ.V0QNH0VlW1qAqTkJYk21uUVl47TqridU5G4wPXq10LQ",
+        "isEnabled": true,
+        "description": "",
+        "dataType": "string"
+      }
+    ],
+    "body": "{\n  \"movieId\":\"cc8c29cd-a2f5-4389-94e6-0b85fa77004e\", \n  \n  \"status\":\"PLANNED\",\n  \"rating\":8\n}",
+    "contentType": "application/json",
     "auth": {
       "currentAuthType": "INHERIT",
       "authConfigStore": {}
