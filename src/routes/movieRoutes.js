@@ -2,16 +2,21 @@ import express from "express";
 // Import routes
 // import movieRoutes from "./routes/movieRoutes.js";
 // const express = require("express");
+import { validateRequest } from "../middleware/validateRequest";
+import {
+  createMovieSchema,
+  updateMovieSchema,
+} from "../Validators/movieValidators";
 const router = express.Router();
 
 // Define your movie routes here
 router.get("/", (req, res) => {
   res.json({ httpmethod: "GET", message: "Welcome to the Movie API!" });
 });
-router.post("/", (req, res) => {
+router.post("/", validateRequest(createMovieSchema), (req, res) => {
   res.json({ httpmethod: "POST", message: "Welcome to the Movie API!" });
 });
-router.put("/", (req, res) => {
+router.put("/", validateRequest(updateMovieSchema), (req, res) => {
   res.json({ httpmethod: "PUT", message: "Welcome to the Movie API!" });
 });
 router.delete("/", (req, res) => {
