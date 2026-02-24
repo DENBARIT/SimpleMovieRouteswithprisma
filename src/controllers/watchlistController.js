@@ -53,4 +53,52 @@ const addtoWatchlist = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
-export { addtoWatchlist };
+const removeFromWatchlist = async (req, res) => {
+  const watchlistItem = await prisma.watchlist.findUnique({
+    where: {
+      id: req.params.id,
+    },
+  });
+  if (!watchlistItem) {
+    return res.status(404).json({ error: "Watchlist item not found" });
+  }
+  // ensuring the user can only delete their own watchlist items
+  if (watchlistItem.userId !== req.user.id) {
+    return res.status(403).json({
+      error: "Forbidden: You can only delete your own watchlist items",
+    });
+  }
+  await prisma.watchlist.delete({
+    where: {
+      id: req.params.id,
+    },
+  });
+  return res
+    .status(200)
+    .json({ message: "Watchlist item removed successfully" });
+};
+const updateWatchlistItem = async (req, res) => {
+  const { status, rating, notes } = req.body;
+  const watchlistItem = await prisma.watchlist.findUnique({
+    where: { id: req.params.id },
+  });
+  if (!watchlistItem) {
+    return res.status(404).json({ error: "Watchlist item not found" });
+  }
+  // ensuring the user can only update their own watchlist items
+  if (watchlistItem.userId !== req.user.id) {
+    return res.status(403).json({
+      error: "Forbidden: You can only update your own watchlist items",
+    });
+  }
+  const updatedItem = await prisma.watchlist.update({
+    where: { id: req.params.id },
+    data: {
+      status,
+      rating,
+      notes,
+    },
+  });
+  return res.status(200).json({ status: "success", data: { updatedItem } });
+};
+export { addtoWatchlist, removeFromWatchlist, updateWatchlistItem };
